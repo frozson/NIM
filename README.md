@@ -12,4 +12,4 @@ It is still in Eary Development , so please notice on any issues and who want to
 ## Open for Contributors
 
 As this is a project taken by me alone, I possibly need your help for making this full functional module.
-So those who want to contribute are requested to open up with me for discussion and we can stage the merge.
+So those who want to contribute are requested to put up your work then we discuss and stage the merge.
