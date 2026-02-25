@@ -1,0 +1,15 @@
+#git Ignore
+
+.git/
+.vs/
+
+#Folders
+out/
+src/engine/
+src/util/
+
+#Files
+include/engine.h
+include/util.h
+
+
