@@ -1,8 +1,6 @@
-cmake_minimum_required(VERSION 3.8)
 
 #raylib
-set(BUILD_EXAMPLES OFF CACHE BOOL "" FORCE)
-set(BUILD_GAMES OFF CACHE BOOL "" FORCE)
+set(BUILD_EXAMPLES OFF)
 set(BUILD_SHARED_LIBS OFF)
 set(INCLUDE_EVERYTHING OFF)
 set(USE_AUDIO OFF)
@@ -10,8 +8,4 @@ set(PLATFORM Desktop)
 
 add_subdirectory(${CMAKE_CURRENT_SOURCE_DIR}/raylib)
 
-
-
-if (WIN32)
-	link_libraries(raylib PRIVATE winmm.lib opengl32.lib gdi32.lib user32.lib shell32.lib)
-endif()
+link_libraries(raylib)

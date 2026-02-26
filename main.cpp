@@ -1,17 +1,8 @@
 
 #include <nim.h>
 #include <raylib.h>
-#include <fstream>
-#include <sstream>
 #include <vector>
 #include <external/stb_image.h>
-
-std::string fullpath(const char * file)
-{
-	std::stringstream abpath;
-	abpath << NIM_DIR << "/" << file;
-	return std::move(abpath.str());
-}
 
 // Please pass on the absolute path in case it fails to load them.
 // Note: Use fullpath() to get the absolute path.
@@ -51,15 +42,12 @@ int show(const char * file)
 	return 0;
 }
 
-int main()
+void imageData(const char* file)
 {
-	std::string abspath = fullpath("sample assets/Frozson.png");
-	
-	int width, height, channel;
-	unsigned char* image = stbi_load(abspath.c_str(), &width, &height, &channel, 0);
-	std::cout << "Width = " << width << " Height = " << height << " Channel = " << channel << "\n";
 
-	//show(abspath.c_str());
+	int width, height, channel;
+	unsigned char* image = stbi_load(file, &width, &height, &channel, 0);
+	std::cout << "Width = " << width << " Height = " << height << " Channel = " << channel << "\n";
 
 	std::vector<uint8_t> arr(width * height * channel);
 	int index;
@@ -76,7 +64,14 @@ int main()
 
 	std::cout << "Original Image Size = " << arr.size() * sizeof(uint8_t) << " Bytes" << std::endl;
 	stbi_image_free(image);
-	show(abspath.c_str());
+}
+
+int main()
+{
+	const std::string example = fullpath("sample assets/Frozson.jpg");
+	imageData(example.c_str());
+	
+	show(example.c_str());
 
 	return 0;
 }

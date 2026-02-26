@@ -4,6 +4,7 @@
 .vs/
 
 #Folders
+build/
 out/
 src/engine/
 src/util/

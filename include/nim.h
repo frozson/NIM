@@ -10,7 +10,8 @@
 
 
 #include <iostream>
-
+#include <fstream>
+#include <sstream>
 
 typedef struct
 {
@@ -31,3 +32,5 @@ typedef struct
 {
 	char data[1];
 } data_nim;
+
+std::string fullpath(const char* file);
