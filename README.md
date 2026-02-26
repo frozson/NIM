@@ -34,4 +34,4 @@ So those who want to contribute are requested to put up your work then we discus
 
 ## License
 
-This Project is open to everyone to use by folling the guidelines stated in [LICENSE](LICENSE).
+This Project is open to everyone to use. Follow the guidelines stated in [LICENSE](LICENSE).
