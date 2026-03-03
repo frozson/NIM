@@ -1,3 +1,3 @@
-[submodule "vendor/raylib"]
-	path = vendor/raylib
-	url = https://github.com/raysan5/raylib.git
+[submodule "vendor/opencv"]
+	path = vendor/opencv
+	url = https://github.com/opencv/opencv.git
