@@ -6,11 +6,11 @@
 #Folders
 build/
 out/
-src/engine/
-src/util/
+engine/
+util/
 
 #Files
-include/engine.h
-include/util.h
+engine.h
+util.h
 
 

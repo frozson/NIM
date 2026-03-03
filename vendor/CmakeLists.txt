@@ -1,11 +1,26 @@
+# vendor CmakeLists.txt 
 
-#raylib
-set(BUILD_EXAMPLES OFF)
-set(BUILD_SHARED_LIBS OFF)
-set(INCLUDE_EVERYTHING OFF)
-set(USE_AUDIO OFF)
-set(PLATFORM Desktop)
+#open-cv
+set(BUILD_LIST "core,imgproc,imgcodecs,highgui" CACHE STRING "Only build core modules")
+# --- OpenCV Build Options ---
+# Disable heavy/unnecessary modules to speed up build
+set(BUILD_TESTS OFF CACHE BOOL "" FORCE)
+set(BUILD_PERF_TESTS OFF CACHE BOOL "" FORCE)
+set(BUILD_EXAMPLES OFF CACHE BOOL "" FORCE)
+set(BUILD_opencv_apps OFF CACHE BOOL "" FORCE)
+set(BUILD_opencv_python2 OFF CACHE BOOL "" FORCE)
+set(BUILD_opencv_python3 OFF CACHE BOOL "" FORCE)
+set(BUILD_DOCS OFF CACHE BOOL "" FORCE)
+set(BUILD_SHARED_LIBS OFF CACHE BOOL "Build as static for easier distribution")
+set(WITH_IPP OFF CACHE BOOL "Disable IPP to fix submodule path issues")
 
-add_subdirectory(${CMAKE_CURRENT_SOURCE_DIR}/raylib)
+add_subdirectory(${CMAKE_CURRENT_SOURCE_DIR}/opencv)
 
-link_libraries(raylib)
+unset(BUILD_TESTS)
+unset(BUILD_PERF_TESTS)
+unset(BUILD_EXAMPLES)
+unset(BUILD_opencv_apps)
+unset(BUILD_opencv_python2)
+unset(BUILD_opencv_python3)
+unset(BUILD_DOCS)
+unset(BUILD_SHARED_LIBS)

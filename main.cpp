@@ -1,77 +1,33 @@
 
 #include <nim.h>
-#include <raylib.h>
-#include <vector>
-#include <external/stb_image.h>
 
-// Please pass on the absolute path in case it fails to load them.
-// Note: Use fullpath() to get the absolute path.
-int show(const char * file)
-{
-	std::fstream f(file);
-	if (!f.good())
-	{
-		std::cout << "Wrong File Path or FILE is NOT GOOD\n";
-		return 1;
-	}
-
-	const int screenWidth = 1280;
-	const int screenHeight = 720;
-	InitWindow(screenWidth, screenHeight, "Raylib");
-	SetTargetFPS(30);
-
-	Texture2D texture = LoadTexture(file);
-	Rectangle source = { 0, 0, (float)texture.width, (float)texture.height };
-	Vector2 aspect = { (float)screenWidth / source.width, (float)screenHeight / source.height };
-	float scale_factor = std::min(aspect.x, aspect.y);
-	Rectangle dest = { 0.0f, 0.0f, source.width * scale_factor , source.height * scale_factor };
-	dest.x = ((float)screenWidth - dest.width) / 2;
-	dest.y = ((float)screenHeight - dest.height) / 2;
-	Vector2 origin = { 0.0f , 0.0f };
-	
-	while (!WindowShouldClose())
-	{
-		BeginDrawing();
-		ClearBackground(BLACK);
-		DrawTexturePro(texture, source, dest, origin, 0.0f, WHITE);
-		//DrawTexture(texture, (int)dest.x, (int)dest.y, WHITE);
-		EndDrawing();
-	}
-	UnloadTexture(texture);
-	CloseWindow();
-	return 0;
-}
-
-void imageData(const char* file)
-{
-
-	int width, height, channel;
-	unsigned char* image = stbi_load(file, &width, &height, &channel, 0);
-	std::cout << "Width = " << width << " Height = " << height << " Channel = " << channel << "\n";
-
-	std::vector<uint8_t> arr(width * height * channel);
-	int index;
-	for (int y = 0; y < height; y++)
-	{
-		for (int x = 0; x < width; x++)
-		{
-			index = (y * height + x) * channel;
-			arr[index] = (uint8_t)image[index];
-			arr[index + 1] = (uint8_t)image[index + 1];
-			arr[index + 2] = (uint8_t)image[index + 2];
-		}
-	}
-
-	std::cout << "Original Image Size = " << arr.size() * sizeof(uint8_t) << " Bytes" << std::endl;
-	stbi_image_free(image);
-}
 
 int main()
 {
-	const std::string example = fullpath("sample assets/Frozson.jpg");
-	imageData(example.c_str());
-	
-	show(example.c_str());
+	cv::Mat image = cv::imread(fullpath("sample assets/Frozson.jpg"), cv::IMREAD_COLOR);
+	if (image.empty())
+	{
+		printf("Unable to read Image\n");
+		return 1;
+	}
+	cv::Mat canny, dx, dy;
+	cv::resize(image, image, { 400, 400 });
+	//cv::cvtColor(image, image, cv::COLOR_BGR2GRAY);
+	try
+	{
+		cv::Canny(image, canny, 0.5, 0.8);
+		cv::imshow("canny", canny);
+		cv::imshow("Image", image);
 
+		printf("Press Any Key to exit\n");
+		cv::waitKey(0);
+
+		cv::destroyAllWindows();
+	}
+	catch (std::exception& e)
+	{
+		std::cout << e.what();
+	}
+	
 	return 0;
 }
